@@ -1,5 +1,6 @@
 //SELECTORS
-const itemList = document.querySelector('.item-list');
+const itemList = document.querySelector("item-list");
+const itemContainer = document.getElementsByClassName(".item-container");
 
 
 //Event listners
@@ -18,15 +19,7 @@ fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?
 .then(json => console.log(json))};
 
 function createItemdiv(){
-    //Create item div
-    const itemDiv = document.createElement('div');
-    itemDiv.classList.add('item');
-
-    //Create li
-    const newItem = document.createElement('li');
-    newItem.innerText = "Omschrijving";
-    newItem.classList.add('item-li');
-    itemDiv.appendChild(newItem);
-
-
+    const newDiv = document.createElement("div");
+    itemDiv.classList.add('itemDiv');
+    itemContainer.appendChild(newDiv);
 };
