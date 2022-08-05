@@ -1,12 +1,22 @@
 //SELECTORS
 const itemList = document.querySelector("item-list");
 const itemContainer = document.getElementsByClassName(".item-container");
-
+const json = '';
+i = 0;
 
 //Event listners
 
 
 //Functions
+function printenItem(){
+    var i = 0;
+    do {
+    getData();
+    i++;
+}
+while(i <= 5);
+};
+
 function getData(){
 fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?skip=0&take=100', {
     method: 'get',
@@ -17,7 +27,10 @@ fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?
 
 })
 .then(response => response.json())
-.then(json => console.log(json))};
+//.then(json => console.log(json))};
+.then(json => console.log(json.rows[i].Omschrijving));
+};
+
 
 
 function createItemdiv(){
