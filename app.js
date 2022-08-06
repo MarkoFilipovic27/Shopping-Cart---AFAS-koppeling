@@ -25,8 +25,7 @@ fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?
 })
 .then(response => response.json())
 //.then(json => console.log(json))
-.then(json => console.log(json.rows[1].Omschrijving))
-.then(json => console.log(json.rows[1].Itemcode));
+.then(json => console.log(json.rows[0].Omschrijving));
 };
 
 
@@ -47,11 +46,18 @@ function dataOphalen(){
         Authorization: "AfasToken " + window.btoa("<token><version>1</version><data>5BABD7C96D94488E9A2CB1C19B8CBD2DC23A01ED428F63F81FC1A7ABB6DE57F4</data></token>")
     }
 })
-    .then(response => response.json());
-    var i = 0;
+    .then(response => response.json())
+    /*var i = 0;
     do{
         json => console.log(json.rows[i].Omschrijving);
-        i++;
+        i = i + 1;
     }
     while(i <= 5);
+    */
+   .then(function printOmschrijving(){
+    for (let i = 0; i <= 5; i++){
+        json => console.log(json.rows[i].Omschrijving);
+    }
+   })
+    
 };
