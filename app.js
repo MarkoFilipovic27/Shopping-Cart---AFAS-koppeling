@@ -16,7 +16,7 @@ const json = '';
 while(i <= 5);
 };
 */
-function getData(){
+async function getData(){
 fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?skip=0&take=25', {
     method: 'get',
     headers: {
@@ -24,7 +24,7 @@ fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?
     }
 })
 .then(response => response.json())
-//.then(json => console.log(json))
+.then(json => console.log(json))
 .then(json => console.log(json.rows[0].Omschrijving));
 };
 
@@ -54,10 +54,9 @@ function dataOphalen(){
     }
     while(i <= 5);
     */
-   .then(function printOmschrijving(){
+   
     for (let i = 0; i <= 5; i++){
         json => console.log(json.rows[i].Omschrijving);
     }
-   })
     
 };
