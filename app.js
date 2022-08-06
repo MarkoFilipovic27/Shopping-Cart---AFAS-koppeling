@@ -15,9 +15,9 @@ const json = '';
 }
 while(i <= 5);
 };
-
+*/
 function getData(){
-fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?skip=0&take=100', {
+fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?skip=0&take=25', {
     method: 'get',
     headers: {
         Authorization: "AfasToken " + window.btoa("<token><version>1</version><data>5BABD7C96D94488E9A2CB1C19B8CBD2DC23A01ED428F63F81FC1A7ABB6DE57F4</data></token>")
@@ -27,11 +27,11 @@ fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?
 })
 .then(response => response.json())
 //.then(json => console.log(json))};
-.then(json => console.log(json.rows[i].Omschrijving));
+.then(json => console.log(json.rows[0].Omschrijving));
 };
 
 
-
+/*
 function createItemdiv(){
     const newDiv = document.createElement("div");
     itemDiv.classList.add('itemDiv');
