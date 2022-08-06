@@ -26,8 +26,9 @@ fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?
 
 })
 .then(response => response.json())
-//.then(json => console.log(json))};
-.then(json => console.log(json.rows[0].Omschrijving));
+.then(json => console.log(json))
+.then(json => console.log(json.rows[0].Omschrijving))
+.then(json => console.log(json.rows[0].Itemcode));
 };
 
 
