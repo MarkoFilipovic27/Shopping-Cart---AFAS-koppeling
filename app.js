@@ -1,33 +1,48 @@
 //SELECTORS
-const itemList = document.querySelector("item-list");
 const itemContainer = document.getElementsByClassName(".item-container");
-const json = '';
+const itemList = document.querySelector("item-list");
+const itemRow = document.querySelector("item-row");
+const itemOmschrijving = document.querySelector(".item-omschrijving");
+const itemCode = document.querySelector(".item-code");
+const itemVoorraad = document.querySelector(".item-voorraad");
+const itemPrijs = document.querySelector(".item-prijs");
 
-//Event listners
+//EVENT LISTENERS
 
 
-//Functions
-/*function printenItem(){
-    var i = 0;
-    do {
-    getData();
-    i++;
-}
-while(i <= 5);
-};
-*/
+//FUNCTIONS
 async function getData(){
-fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?skip=0&take=25', {
-    method: 'get',
-    headers: {
-        Authorization: "AfasToken " + window.btoa("<token><version>1</version><data>5BABD7C96D94488E9A2CB1C19B8CBD2DC23A01ED428F63F81FC1A7ABB6DE57F4</data></token>")
-    }
-})
-.then(response => response.json())
-.then(json => console.log(json))
-.then(json => console.log(json.rows[0].Omschrijving));
-};
+    //data ophalen middels een API URL
+    const response = await fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?skip=0&take=25', {
+        method: 'get',
+        headers: {
+            Authorization: "AfasToken " + window.btoa("<token><version>1</version><data>5BABD7C96D94488E9A2CB1C19B8CBD2DC23A01ED428F63F81FC1A7ABB6DE57F4</data></token>")
+        }
+    })
 
+    //data terugstoppen in data als een response in json
+    const data = await response.json();
+
+    //loggen van de raw json
+    console.log(data);
+
+    //definieren van het aantal regels
+    console.log(data.rows.length);
+
+    //alle omschrijvingen ophalen
+    for (let i = 0; i < data.rows.length; i++){
+        const newDiv = document.createElement("div");
+        newDiv.innerText = data.rows[i].Omschrijving.value;
+        newDiv.classList.add('item-omschrijving');
+        itemRow.appendChild(newDiv);
+        
+        console.log(data.rows[i].Omschrijving);
+    }
+
+    };
+    
+    //functie oproepen tijdens het laden van de pagina
+    getData();
 
 /*
 function createItemdiv(){
@@ -35,28 +50,3 @@ function createItemdiv(){
     itemDiv.classList.add('itemDiv');
     itemContainer.appendChild(newDiv);
 };*/
-
-
-//test alles in 1 functie
-function dataOphalen(){
-    //API
-    fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?skip=0&take=25', {
-    method: 'get',
-    headers: {
-        Authorization: "AfasToken " + window.btoa("<token><version>1</version><data>5BABD7C96D94488E9A2CB1C19B8CBD2DC23A01ED428F63F81FC1A7ABB6DE57F4</data></token>")
-    }
-})
-    .then(response => response.json())
-    /*var i = 0;
-    do{
-        json => console.log(json.rows[i].Omschrijving);
-        i = i + 1;
-    }
-    while(i <= 5);
-    */
-   
-    for (let i = 0; i <= 5; i++){
-        json => console.log(json.rows[i].Omschrijving);
-    }
-    
-};
