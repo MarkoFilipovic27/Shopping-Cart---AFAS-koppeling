@@ -1,7 +1,7 @@
 //SELECTORS
 const itemContainer = document.getElementsByClassName(".item-container");
-const itemList = document.querySelector("item-list");
-const itemRow = document.querySelector("item-row");
+const itemList = document.querySelector(".item-list");
+const itemRow = document.querySelector(".item-row");
 const itemOmschrijving = document.querySelector(".item-omschrijving");
 const itemCode = document.querySelector(".item-code");
 const itemVoorraad = document.querySelector(".item-voorraad");
@@ -31,12 +31,36 @@ async function getData(){
 
     //alle omschrijvingen ophalen
     for (let i = 0; i < data.rows.length; i++){
-        const newDiv = document.createElement("div");
-        newDiv.innerText = data.rows[i].Omschrijving.value;
-        newDiv.classList.add('item-omschrijving');
-        itemRow.appendChild(newDiv);
+        const itemRow = document.createElement("li");
+        const divOmschrijving = document.createElement("div");
+        const divItemcode = document.createElement("div");
+        const divVoorraad = document.createElement("div");
+        const divPrijs = document.createElement("div");
         
-        console.log(data.rows[i].Omschrijving);
+        //row
+        itemRow.classList.add('item-row');
+        itemList.appendChild(itemRow);
+
+        //omschrijving div
+        divOmschrijving.innerText = data.rows[i].Omschrijving;
+        divOmschrijving.classList.add('item-omschrijving');
+        itemRow.appendChild(divOmschrijving);
+
+        //item-code div
+        divItemcode.innerText = data.rows[i].Itemcode;
+        divItemcode.classList.add('item-code');
+        itemRow.appendChild(divItemcode);
+
+        //voorraad div
+        divVoorraad.innerText = data.rows[i].Op_voorraad;
+        divVoorraad.classList.add('item-voorraad');
+        itemRow.appendChild(divVoorraad);
+
+        //prijs div
+        divPrijs.innerText = data.rows[i].Bedrag;
+        divPrijs.classList.add('item-prijs');
+        itemRow.appendChild(divPrijs);
+        
     }
 
     };
