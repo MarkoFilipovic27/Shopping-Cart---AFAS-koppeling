@@ -27,8 +27,6 @@ async function getData(){
     //loggen van de raw json
     console.log(data);
 
-    //definieren van het aantal regels
-    console.log(data.rows.length);
 
     //alle omschrijvingen ophalen
     for (let i = 0; i < data.rows.length; i++){
@@ -39,12 +37,16 @@ async function getData(){
         const divVoorraad = document.createElement("div");
         const divPrijs = document.createElement("div");
         
+        
         //row div
         itemRow.classList.add('item-row');
         itemList.appendChild(itemRow);
 
         //afbeelding div
-        divAfbeelding.innerHTML = '<img src="https://www.sony.nl/image/6888e27aa56d3635b8f306d2550d7574?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF" alt="" width="100" height="100">';
+        var image = new Image();
+        var imageBase64 = data.rows[i].Afbeelding;
+        image.src = 'data:image/png;base64,' + imageBase64;
+        divAfbeelding.appendChild(image);
         divAfbeelding.classList.add('item-afbeelding');
         itemRow.appendChild(divAfbeelding);
 
@@ -68,16 +70,59 @@ async function getData(){
         divPrijs.classList.add('item-prijs');
         itemRow.appendChild(divPrijs);
         
+        //div voor min, plus en aantal
+        const divMinplus = document.createElement("div");
+        divMinplus.classList.add('min-plus-aantal');
+        itemRow.appendChild(divMinplus);
+
+        //min button
+        const minButton = document.createElement('button');
+        minButton.innerHTML = '<i class="material-icons" style="font-size:18px">remove</i>';
+        minButton.classList.add('min-btn');
+        divMinplus.appendChild(minButton);
+
+        //aantal invullen
+        const invulAantal = document.createElement('input');
+        invulAantal.classList.add('invul-aantal');
+        invulAantal.setAttribute("type", "number");
+        invulAantal.setAttribute("placeholder","0");
+        invulAantal.setAttribute("value","0");
+        divMinplus.appendChild(invulAantal);
+
+        //plus button
+        const plusButton = document.createElement('button');
+        plusButton.innerHTML = '<i class="material-icons" style="font-size:18px">add</i>';
+        plusButton.classList.add('plus-btn');
+        divMinplus.appendChild(plusButton);
+        
+        //plussen van aantal
+        plusButton.addEventListener("click", function plusAantal(){
+            var aantal = parseInt(document.getElementsByClassName('invul-aantal').value);
+            aantal = isNaN(aantal) ? 0 : aantal;
+            aantal = document.getElementsByClassName('invul-aantal').value = aantal++;
+            console.log(aantal);
+        });
+
+        /*plusButton.addEventListener("click", function plusAantal(){
+        var aantal = parseInt(document.getElementsByClassName('invul-aantal').value, 10);
+        aantal = isNaN(aantal) ? 0 : aantal;
+        aantal++;
+        document.getElementsByClassName('invul-aantal').value = aantal;
+        console.log(aantal);
+        });*/
+
+        //minnen van aantal
+        minButton.addEventListener("click", function minAantal(){
+            aantal = aantal - 1;
+            console.log(aantal);
+            invulAantal.setAttribute("value",aantal);
+        });
     }
 
     };
-    
+
+
+
+
     //functie oproepen tijdens het laden van de pagina
     getData();
-
-/*
-function createItemdiv(){
-    const newDiv = document.createElement("div");
-    itemDiv.classList.add('itemDiv');
-    itemContainer.appendChild(newDiv);
-};*/

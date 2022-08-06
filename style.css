@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
 body{
     background-color: #F2F5F8;
     color: #FF385C;
@@ -11,14 +15,15 @@ body{
     min-height: 100vh;
 }
 
-header{
-    font-size: 1.5rem;
-}
+.item-container{
+    margin: 100px;
 
+}
 .item-list{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .item-row{
@@ -31,4 +36,39 @@ header{
     flex-direction: column;
     align-items: center;
     text-align: center;
+}
+
+.min-plus-aantal{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    margin-top: 20%;
+}
+
+.invul-aantal{
+    width: 50px;
+    height: 100%;
+    text-align: center;
+
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: solid 1px;
+    border-color: #F2F5F8;
+    background: white;
+    border-radius: 4px;
+    box-shadow: 5px 10px 18px #F2F5F8;
+
+}
+
+.min-btn, .plus-btn{
+    height: 28px;
+    width: 28px;
+    color: #FF385C;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    border: 0;
+    box-shadow: 5px 10px 18px #F2F5F8;
 }
