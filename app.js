@@ -7,7 +7,7 @@ const json = '';
 
 
 //Functions
-function printenItem(){
+/*function printenItem(){
     var i = 0;
     do {
     getData();
@@ -36,8 +36,7 @@ function createItemdiv(){
     const newDiv = document.createElement("div");
     itemDiv.classList.add('itemDiv');
     itemContainer.appendChild(newDiv);
-};
-
+};*/
 
 
 //test alles in 1 functie
