@@ -6,6 +6,7 @@ const itemOmschrijving = document.querySelector(".item-omschrijving");
 const itemCode = document.querySelector(".item-code");
 const itemVoorraad = document.querySelector(".item-voorraad");
 const itemPrijs = document.querySelector(".item-prijs");
+const itemAfbeelding = document.querySelector(".item-afbeelding");
 
 //EVENT LISTENERS
 
@@ -32,14 +33,20 @@ async function getData(){
     //alle omschrijvingen ophalen
     for (let i = 0; i < data.rows.length; i++){
         const itemRow = document.createElement("li");
+        const divAfbeelding = document.createElement("div");
         const divOmschrijving = document.createElement("div");
         const divItemcode = document.createElement("div");
         const divVoorraad = document.createElement("div");
         const divPrijs = document.createElement("div");
         
-        //row
+        //row div
         itemRow.classList.add('item-row');
         itemList.appendChild(itemRow);
+
+        //afbeelding div
+        divAfbeelding.innerHTML = '<img src="https://www.sony.nl/image/6888e27aa56d3635b8f306d2550d7574?fmt=pjpeg&wid=330&bgcolor=FFFFFF&bgc=FFFFFF" alt="" width="100" height="100">';
+        divAfbeelding.classList.add('item-afbeelding');
+        itemRow.appendChild(divAfbeelding);
 
         //omschrijving div
         divOmschrijving.innerText = data.rows[i].Omschrijving;
