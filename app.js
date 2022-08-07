@@ -8,10 +8,14 @@ const itemVoorraad = document.querySelector(".item-voorraad");
 const itemPrijs = document.querySelector(".item-prijs");
 const itemAfbeelding = document.querySelector(".item-afbeelding");
 
+
+
 //EVENT LISTENERS
 
 
 //FUNCTIONS
+
+//Ophalen en tonen van de data
 async function getData(){
     //data ophalen middels een API URL
     const response = await fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?skip=0&take=25', {
@@ -28,7 +32,7 @@ async function getData(){
     console.log(data);
 
 
-    //alle omschrijvingen ophalen
+    //loop om alle divs te maken
     for (let i = 0; i < data.rows.length; i++){
         const itemRow = document.createElement("li");
         const divAfbeelding = document.createElement("div");
@@ -37,9 +41,17 @@ async function getData(){
         const divVoorraad = document.createElement("div");
         const divPrijs = document.createElement("div");
         
-        
+        //alles in een array, zodat het uniek is
+        var ItemsData = [{
+            id: data.rows[i].Itemcode,
+            omschrijving: data.rows[i].Omschrijving,
+            prijs: data.rows[i].Bedrag,
+            image: data.rows[i].Afbeelding
+        }];
+
         //row div
         itemRow.classList.add('item-row');
+        itemRow.setAttribute("id", data.rows[i].Itemcode);
         itemList.appendChild(itemRow);
 
         //afbeelding div
@@ -75,13 +87,13 @@ async function getData(){
         divMinplus.classList.add('min-plus-aantal');
         itemRow.appendChild(divMinplus);
 
-        //min button
+        //min button div
         const minButton = document.createElement('button');
-        minButton.innerHTML = '<i class="material-icons" style="font-size:18px">remove</i>';
+        minButton.innerHTML = '<i onclick="minnenAantal()" class="material-icons" style="font-size:18px">remove</i>';
         minButton.classList.add('min-btn');
         divMinplus.appendChild(minButton);
 
-        //aantal invullen
+        //aantal invullen div
         const invulAantal = document.createElement('input');
         invulAantal.classList.add('invul-aantal');
         invulAantal.setAttribute("type", "number");
@@ -89,40 +101,35 @@ async function getData(){
         invulAantal.setAttribute("value","0");
         divMinplus.appendChild(invulAantal);
 
-        //plus button
+        //plus button div
         const plusButton = document.createElement('button');
-        plusButton.innerHTML = '<i class="material-icons" style="font-size:18px">add</i>';
+        plusButton.innerHTML = '<i onclick="plussenAantal()" class="material-icons" style="font-size:18px">add</i>';
         plusButton.classList.add('plus-btn');
         divMinplus.appendChild(plusButton);
+
         
-        //plussen van aantal
-        plusButton.addEventListener("click", function plusAantal(){
-            var aantal = parseInt(document.getElementsByClassName('invul-aantal').value);
-            aantal = isNaN(aantal) ? 0 : aantal;
-            aantal = document.getElementsByClassName('invul-aantal').value = aantal++;
-            console.log(aantal);
-        });
 
-        /*plusButton.addEventListener("click", function plusAantal(){
-        var aantal = parseInt(document.getElementsByClassName('invul-aantal').value, 10);
-        aantal = isNaN(aantal) ? 0 : aantal;
-        aantal++;
-        document.getElementsByClassName('invul-aantal').value = aantal;
-        console.log(aantal);
-        });*/
+        console.log(ItemsData);
 
-        //minnen van aantal
-        minButton.addEventListener("click", function minAantal(){
-            aantal = aantal - 1;
-            console.log(aantal);
-            invulAantal.setAttribute("value",aantal);
-        });
+        
+        
     }
+
+    let plussenAantal =  function plussenAantal() {
+        let selectedItem = ItemsData.id;
+        console.log(ItemsData.id);
+    };
 
     };
 
 
 
 
-    //functie oproepen tijdens het laden van de pagina
-    getData();
+async function minnenAantal(id){
+
+};
+
+
+
+//functie oproepen tijdens het laden van de pagina
+getData();
