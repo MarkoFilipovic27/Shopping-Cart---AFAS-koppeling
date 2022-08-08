@@ -115,15 +115,15 @@ async function getData(){
         
     }
 
-    let plussenAantal =  function plussenAantal() {
-        let selectedItem = ItemsData.id;
-        console.log(ItemsData.id);
-    };
+    
 
     };
 
 
-
+var plussenAantal =  function plussenAantal() {
+    let selectedItem = ItemsData.id;
+    console.log(ItemsData.id);
+};
 
 async function minnenAantal(id){
 
