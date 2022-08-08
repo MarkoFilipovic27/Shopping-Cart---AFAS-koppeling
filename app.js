@@ -7,6 +7,13 @@ const itemCode = document.querySelector(".item-code");
 const itemVoorraad = document.querySelector(".item-voorraad");
 const itemPrijs = document.querySelector(".item-prijs");
 const itemAfbeelding = document.querySelector(".item-afbeelding");
+const id = "";
+var ItemsData = {
+    id: "",
+    omschrijving: "",
+    prijs: "",
+    image: ""
+};
 
 
 
@@ -15,8 +22,11 @@ const itemAfbeelding = document.querySelector(".item-afbeelding");
 
 //FUNCTIONS
 
+
+
 //Ophalen en tonen van de data
 async function getData(){
+ 
     //data ophalen middels een API URL
     const response = await fetch('https://31219.restaccept.afas.online/ProfitRestServices/connectors/Items?skip=0&take=25', {
         method: 'get',
@@ -42,12 +52,14 @@ async function getData(){
         const divPrijs = document.createElement("div");
         
         //alles in een array, zodat het uniek is
-        var ItemsData = [{
+        ItemsData = {
             id: data.rows[i].Itemcode,
             omschrijving: data.rows[i].Omschrijving,
             prijs: data.rows[i].Bedrag,
             image: data.rows[i].Afbeelding
-        }];
+        };
+
+        //console.log(ItemsData.id);
 
         //row div
         itemRow.classList.add('item-row');
@@ -89,7 +101,7 @@ async function getData(){
 
         //min button div
         const minButton = document.createElement('button');
-        minButton.innerHTML = '<i onclick="minnenAantal()" class="material-icons" style="font-size:18px">remove</i>';
+        minButton.innerHTML = `'<i onclick="minnenAantal(${ItemsData.id})" class="material-icons" style="font-size:18px">remove</i>'`;
         minButton.classList.add('min-btn');
         divMinplus.appendChild(minButton);
 
@@ -97,39 +109,61 @@ async function getData(){
         const invulAantal = document.createElement('input');
         invulAantal.classList.add('invul-aantal');
         invulAantal.setAttribute("type", "number");
-        invulAantal.setAttribute("placeholder","0");
-        invulAantal.setAttribute("value","0");
+        //invulAantal.setAttribute("placeholder","0");
+        invulAantal.setAttribute("value",0);
+        invulAantal.setAttribute("id", ItemsData.id+"aantal");
         divMinplus.appendChild(invulAantal);
 
         //plus button div
         const plusButton = document.createElement('button');
-        plusButton.innerHTML = '<i onclick="plussenAantal()" class="material-icons" style="font-size:18px">add</i>';
+        plusButton.setAttribute("id", ItemsData.id);
+        plusButton.innerHTML = `'<i id="${ItemsData.id}plus" onclick="plussenAantal(${ItemsData.id})" class="material-icons" style="font-size:18px">add</i>'`;
+        //console.log(plusButton.innerHTML);
         plusButton.classList.add('plus-btn');
         divMinplus.appendChild(plusButton);
 
+        //console.log(data.rows[i].Itemcode);
+        //console.log(ItemsData);
         
 
-        console.log(ItemsData);
-
-        
         
     }
 
     
-
-    };
-
-
-var plussenAantal =  function plussenAantal() {
-    let selectedItem = ItemsData.id;
-    console.log(ItemsData.id);
+    
 };
 
-async function minnenAantal(id){
 
-};
 
 
 
 //functie oproepen tijdens het laden van de pagina
 getData();
+
+function plussenAantal(clicked_id){
+    //const aantal = document.getElementsByClassName("invul-aantal")[i].value;
+    //console.log(aantal);
+    
+    var clicked_id;
+    console.log(clicked_id);
+    var oudAantal = parseInt(document.getElementById(clicked_id+"aantal").value);
+    oudAantal++
+    document.getElementById(clicked_id+"aantal").value = oudAantal;
+    document.getElementById(clicked_id+"aantal").setAttribute("value", oudAantal);
+    //document.querySelector(ItemsData.id+"aantal").value = oudAantal;
+    console.log(oudAantal);
+};
+
+function minnenAantal(clicked_id){
+    //const aantal = document.getElementsByClassName("invul-aantal")[i].value;
+    //console.log(aantal);
+    
+    var clicked_id;
+    console.log(clicked_id);
+    var oudAantal = parseInt(document.getElementById(clicked_id+"aantal").value);
+    oudAantal--
+    document.getElementById(clicked_id+"aantal").value = oudAantal;
+    document.getElementById(clicked_id+"aantal").setAttribute("value", oudAantal);
+    //document.querySelector(ItemsData.id+"aantal").value = oudAantal;
+    console.log(oudAantal);
+};
