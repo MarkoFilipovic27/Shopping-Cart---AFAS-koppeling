@@ -119,3 +119,12 @@ body{
     font-size: 0.75rem;
     display: inline;
 }
+
+
+.nav-bar{
+    height: 100px;
+    background-color: white;
+    position: top;
+    text-align: center;
+    padding-top: 1%;
+}
