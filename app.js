@@ -115,7 +115,7 @@ async function getData(){
         invulAantal.setAttribute("value",0);
         invulAantal.setAttribute("id", ItemsData.id+"aantal");
         invulAantal.setAttribute("min", 0);
-        invulAantal.setAttribute("oninput", "validity.valid||(value='');");
+        invulAantal.setAttribute("oninput", "this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null");
         divMinplus.appendChild(invulAantal);
 
         //plus button div
@@ -125,16 +125,8 @@ async function getData(){
         plusButton.innerHTML = `<i id="${ItemsData.id}plus" class="material-icons" style="font-size:18px">add</i>`;
         plusButton.classList.add('plus-btn');
         divMinplus.appendChild(plusButton);
-
-        //console.log(data.rows[i].Itemcode);
-        //console.log(ItemsData);
-        
-
-        
     }
 
-    
-    
 };
 
 
