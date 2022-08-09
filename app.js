@@ -80,17 +80,17 @@ async function getData(){
         itemRow.appendChild(divOmschrijving);
 
         //item-code div
-        divItemcode.innerText = data.rows[i].Itemcode;
+        divItemcode.innerText = "Itemcode: " + data.rows[i].Itemcode;
         divItemcode.classList.add('item-code');
         itemRow.appendChild(divItemcode);
 
         //voorraad div
-        divVoorraad.innerText = data.rows[i].Op_voorraad;
+        divVoorraad.innerText = "Op voorraad: " + data.rows[i].Op_voorraad;
         divVoorraad.classList.add('item-voorraad');
         itemRow.appendChild(divVoorraad);
 
         //prijs div
-        divPrijs.innerText = data.rows[i].Bedrag;
+        divPrijs.innerText = "Prijs incl. btw: €" + data.rows[i].Bedrag;
         divPrijs.classList.add('item-prijs');
         itemRow.appendChild(divPrijs);
         
@@ -101,7 +101,10 @@ async function getData(){
 
         //min button div
         const minButton = document.createElement('button');
-        minButton.innerHTML = `'<i onclick="minnenAantal(${ItemsData.id})" class="material-icons" style="font-size:18px">remove</i>'`;
+        minButton.setAttribute("id", ItemsData.id);
+        minButton.setAttribute("onclick", `minnenAantal(${ItemsData.id})`);
+        minButton.innerHTML = `<i class="material-icons" style="font-size:18px">remove</i>`;
+        minButton.innerText.replace("'", "");
         minButton.classList.add('min-btn');
         divMinplus.appendChild(minButton);
 
@@ -117,8 +120,8 @@ async function getData(){
         //plus button div
         const plusButton = document.createElement('button');
         plusButton.setAttribute("id", ItemsData.id);
-        plusButton.innerHTML = `'<i id="${ItemsData.id}plus" onclick="plussenAantal(${ItemsData.id})" class="material-icons" style="font-size:18px">add</i>'`;
-        //console.log(plusButton.innerHTML);
+        plusButton.setAttribute("onclick", `plussenAantal(${ItemsData.id})`);
+        plusButton.innerHTML = `<i id="${ItemsData.id}plus" class="material-icons" style="font-size:18px">add</i>`;
         plusButton.classList.add('plus-btn');
         divMinplus.appendChild(plusButton);
 
@@ -150,7 +153,6 @@ function plussenAantal(clicked_id){
     oudAantal++
     document.getElementById(clicked_id+"aantal").value = oudAantal;
     document.getElementById(clicked_id+"aantal").setAttribute("value", oudAantal);
-    //document.querySelector(ItemsData.id+"aantal").value = oudAantal;
     console.log(oudAantal);
 };
 
@@ -164,6 +166,5 @@ function minnenAantal(clicked_id){
     oudAantal--
     document.getElementById(clicked_id+"aantal").value = oudAantal;
     document.getElementById(clicked_id+"aantal").setAttribute("value", oudAantal);
-    //document.querySelector(ItemsData.id+"aantal").value = oudAantal;
     console.log(oudAantal);
 };
