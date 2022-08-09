@@ -112,9 +112,10 @@ async function getData(){
         const invulAantal = document.createElement('input');
         invulAantal.classList.add('invul-aantal');
         invulAantal.setAttribute("type", "number");
-        //invulAantal.setAttribute("placeholder","0");
         invulAantal.setAttribute("value",0);
         invulAantal.setAttribute("id", ItemsData.id+"aantal");
+        invulAantal.setAttribute("min", 0);
+        invulAantal.setAttribute("oninput", "validity.valid||(value='');");
         divMinplus.appendChild(invulAantal);
 
         //plus button div
@@ -148,12 +149,10 @@ function plussenAantal(clicked_id){
     //console.log(aantal);
     
     var clicked_id;
-    console.log(clicked_id);
     var oudAantal = parseInt(document.getElementById(clicked_id+"aantal").value);
     oudAantal++
     document.getElementById(clicked_id+"aantal").value = oudAantal;
     document.getElementById(clicked_id+"aantal").setAttribute("value", oudAantal);
-    console.log(oudAantal);
 };
 
 function minnenAantal(clicked_id){
@@ -161,10 +160,8 @@ function minnenAantal(clicked_id){
     //console.log(aantal);
     
     var clicked_id;
-    console.log(clicked_id);
     var oudAantal = parseInt(document.getElementById(clicked_id+"aantal").value);
     oudAantal--
     document.getElementById(clicked_id+"aantal").value = oudAantal;
     document.getElementById(clicked_id+"aantal").setAttribute("value", oudAantal);
-    console.log(oudAantal);
 };
