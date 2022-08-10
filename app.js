@@ -64,6 +64,7 @@ async function getData(){
         //row div
         itemRow.classList.add('item-row');
         itemRow.setAttribute("id", data.rows[i].Itemcode);
+        itemRow.setAttribute("class", "grid grid-flow-col gap-1 max-w-md p-2 m-2 bg-white rounded-2xl hover:shadow border border-b-4");
         itemList.appendChild(itemRow);
 
         //afbeelding div
@@ -72,26 +73,31 @@ async function getData(){
         image.src = 'data:image/png;base64,' + imageBase64;
         divAfbeelding.appendChild(image);
         divAfbeelding.classList.add('item-afbeelding');
+        divAfbeelding.setAttribute("class", "row-span-5 w-24 m-2 self-center");
         itemRow.appendChild(divAfbeelding);
 
         //omschrijving div
         divOmschrijving.innerText = data.rows[i].Omschrijving;
         divOmschrijving.classList.add('item-omschrijving');
+        divOmschrijving.setAttribute("class", "text-red-500 text-base subpixel-antialiased");
         itemRow.appendChild(divOmschrijving);
 
         //item-code div
         divItemcode.innerText = "Itemcode: " + data.rows[i].Itemcode;
         divItemcode.classList.add('item-code');
+        divItemcode.setAttribute("class", "text-black text-sm subpixel-antialiased");
         itemRow.appendChild(divItemcode);
 
         //voorraad div
         divVoorraad.innerText = "Op voorraad: " + data.rows[i].Op_voorraad;
         divVoorraad.classList.add('item-voorraad');
+        divVoorraad.setAttribute("class", "text-black text-sm subpixel-antialiased");
         itemRow.appendChild(divVoorraad);
 
         //prijs div
         divPrijs.innerText = "Prijs incl. btw: €" + data.rows[i].Bedrag;
         divPrijs.classList.add('item-prijs');
+        divPrijs.setAttribute("class", "text-black text-sm subpixel-antialiased");
         itemRow.appendChild(divPrijs);
         
         //div voor min, plus en aantal
@@ -103,7 +109,8 @@ async function getData(){
         const minButton = document.createElement('button');
         minButton.setAttribute("id", ItemsData.id);
         minButton.setAttribute("onclick", `minnenAantal(${ItemsData.id})`);
-        minButton.innerHTML = `<i class="material-icons" style="font-size:18px">remove</i>`;
+        minButton.setAttribute("class", "align-middle hover:shadow-md");
+        minButton.innerHTML = `<i class="material-icons shadow focus:shadow-outline focus:outline-none bg-red-500 text-white h-10 w-10 font-bold rounded border-red-600 border-b-4">remove</i>`;
         minButton.innerText.replace("'", "");
         minButton.classList.add('min-btn');
         divMinplus.appendChild(minButton);
@@ -115,6 +122,7 @@ async function getData(){
         invulAantal.setAttribute("value",0);
         invulAantal.setAttribute("id", ItemsData.id+"aantal");
         invulAantal.setAttribute("min", 0);
+        invulAantal.setAttribute("class", "h-10 w-20 text-center shadow appearance-none border rounded m-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:shadow-md");
         invulAantal.setAttribute("oninput", "this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null");
         divMinplus.appendChild(invulAantal);
 
@@ -122,7 +130,8 @@ async function getData(){
         const plusButton = document.createElement('button');
         plusButton.setAttribute("id", ItemsData.id);
         plusButton.setAttribute("onclick", `plussenAantal(${ItemsData.id})`);
-        plusButton.innerHTML = `<i id="${ItemsData.id}plus" class="material-icons" style="font-size:18px">add</i>`;
+        plusButton.setAttribute("class", " hover:shadow-md");
+        plusButton.innerHTML = `<i id="${ItemsData.id}plus" class="material-icons shadow focus:shadow-outline focus:outline-none bg-lime-500 text-white h-10 w-10 font-bold rounded border-lime-600 border-b-4">add</i>`;
         plusButton.classList.add('plus-btn');
         divMinplus.appendChild(plusButton);
     }
