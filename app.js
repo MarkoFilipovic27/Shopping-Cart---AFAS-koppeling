@@ -64,7 +64,7 @@ async function getData(){
         //row div
         itemRow.classList.add('item-row');
         itemRow.setAttribute("id", data.rows[i].Itemcode);
-        itemRow.setAttribute("class", "grid grid-flow-col gap-1 max-w-md p-2 m-2 bg-white rounded-2xl hover:shadow border border-b-4");
+        itemRow.setAttribute("class", "grid grid-flow-col gap-1 p-2 m-2 bg-white rounded-2xl hover:shadow border border-b-4");
         itemList.appendChild(itemRow);
 
         //afbeelding div
