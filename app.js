@@ -51,6 +51,9 @@ async function getData(){
         const divItemcode = document.createElement("div");
         const divVoorraad = document.createElement("div");
         const divPrijs = document.createElement("div");
+        const divProductInfo = document.createElement("div");
+        const divProductText = document.createElement("div");
+        const divPrijsMinAantalPlus = document.createElement("div");
         
         //alles in een array, zodat het uniek is
         ItemsData = {
@@ -65,60 +68,81 @@ async function getData(){
         //row div
         itemRow.classList.add('item-row');
         itemRow.setAttribute("id", data.rows[i].Itemcode);
-        itemRow.setAttribute("class", "basis-1/4 p-2 m-2 bg-white  hover:shadow border border-b-4");
+        //itemRow.setAttribute("class", "basis-1/4 p-2 m-2 bg-white  hover:shadow border border-b-4");
+        itemRow.setAttribute("class", "h-[420px] w-[900px] m14 my-3.5 mx-auto rounded-lg shadow-xl");
         itemList.appendChild(itemRow);
 
         //afbeelding div
         var image = new Image();
         var imageBase64 = data.rows[i].Afbeelding;
         image.src = 'data:image/png;base64,' + imageBase64;
+        image.classList = "h-[420px] object-cover object-left-top rounded-tl-lg rounded-bl-lg"
         divAfbeelding.appendChild(image);
         divAfbeelding.classList.add('item-afbeelding');
-        divAfbeelding.setAttribute("class", "flex justify-center h-32 p-2");
+        //divAfbeelding.setAttribute("class", "flex justify-center h-32 p-2");
+        divAfbeelding.setAttribute("class", "float-left h-[420px] w-[327px] rounded-tl-lg rounded-bl-lg");
         itemRow.appendChild(divAfbeelding);
+
+        //product info
+        divProductInfo.setAttribute("class", "product-info float-left h-[420px] w-[573px] bg-white rounded-tr-lg rounded-br-lg");
+        itemRow.appendChild(divProductInfo);
+
+        //product text
+        divProductText.setAttribute("class", "product-text h-[300px] w-[573px]");
+        divProductInfo.appendChild(divProductText);
 
         //omschrijving div
         divOmschrijving.innerText = data.rows[i].Omschrijving;
         divOmschrijving.classList.add('item-omschrijving');
-        divOmschrijving.setAttribute("class", "text-sm text-red-500 font-semibold subpixel-antialiased h-10");
-        itemRow.appendChild(divOmschrijving);
+        //divOmschrijving.setAttribute("class", "text-sm text-red-500 font-semibold subpixel-antialiased h-10");
+        divOmschrijving.setAttribute("class", "ml-9 mr-9 pt-12 text-4xl text-zinc-700 font-['Bentham'] font-semibold");
+        divProductText.appendChild(divOmschrijving);
 
         //extra omschrijving div
         divExtraOmschrijving.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam enim lacus, tincidunt in tempor id, ultrices eget augue.";
-        divExtraOmschrijving.setAttribute("class", "item-extra-omschrijving text-sm subpixel-antialiased italic text-[12px] pb-2");
-        itemRow.appendChild(divExtraOmschrijving);
+        divExtraOmschrijving.setAttribute("class", "h-[70px] ml-9 mr-9 font-['Playfair Display'] text-zinc-600 leading-relaxed text-base font-light overflow-hidden");
+        divProductText.appendChild(divExtraOmschrijving);
 
         //item-code div
         divItemcode.innerText = "Itemcode: " + data.rows[i].Itemcode;
         divItemcode.classList.add('item-code');
-        divItemcode.setAttribute("class", "text-black text-sm subpixel-antialiased");
-        itemRow.appendChild(divItemcode);
+        //divItemcode.setAttribute("class", "text-black text-sm subpixel-antialiased");
+        divItemcode.setAttribute("class", "ml-9 mr-9 font-['Playfair Display'] text-zinc-600 leading-relaxed text-base font-light overflow-hidden");
+        divProductText.appendChild(divItemcode);
 
         //voorraad div
         divVoorraad.innerHTML = "<span>Op voorraad: </span>";
         divVoorraad.innerText = "Op voorraad: " + data.rows[i].Op_voorraad;
         divVoorraad.classList.add('item-voorraad');
         divVoorraad.setAttribute("class", "text-black text-sm subpixel-antialiased");
-        itemRow.appendChild(divVoorraad);
+        divVoorraad.setAttribute("class", "ml-9 mr-9 font-['Playfair Display'] text-zinc-600 leading-relaxed text-base font-light overflow-hidden");
+        divProductText.appendChild(divVoorraad);     
+
+        
+        
+        //div voor min, plus, aantal en prijs 
+        divPrijsMinAantalPlus.setAttribute("class", "prijs-aantal relative");
+        divProductInfo.appendChild(divPrijsMinAantalPlus);
 
         //prijs div
-        divPrijs.innerText = "Prijs incl. btw: €" + data.rows[i].Bedrag;
+        divPrijs.innerText = "€ " + data.rows[i].Bedrag;
         divPrijs.classList.add('item-prijs');
-        divPrijs.setAttribute("class", "text-black text-sm subpixel-antialiased");
-        itemRow.appendChild(divPrijs);
-        
-        //div voor min, plus en aantal
+        divPrijs.setAttribute("class", "ml-9 mr-9 text-4xl text-zinc-700 font-['Bentham'] font-semibold inline-block absolute");
+        divPrijsMinAantalPlus.appendChild(divPrijs);
+
+        //div voor min, plus, aantal
         const divMinplus = document.createElement("div");
         divMinplus.classList.add('min-plus-aantal');
-        divMinplus.setAttribute("class", "flex justify-center items-end self-end");
-        itemRow.appendChild(divMinplus);
+        divMinplus.setAttribute("class", "w-[573px] float-right inline-block mr-10 ml-4 box-border absolute");
+        divPrijsMinAantalPlus.appendChild(divMinplus);
+       
 
         //min button div
         const minButton = document.createElement('button');
         minButton.setAttribute("id", ItemsData.id);
         minButton.setAttribute("onclick", `minnenAantal(${ItemsData.id})`);
         minButton.setAttribute("class", "align-middle hover:shadow-md");
-        minButton.innerHTML = `<i class="material-icons shadow focus:shadow-outline focus:outline-none bg-red-500 text-white h-10 w-10 font-bold rounded border-red-600 border-b-4">remove</i>`;
+        minButton.innerHTML = `<i class="material-icons inline-block float-right shadow focus:shadow-outline focus:outline-none bg-red-500 text-white h-10 w-10 font-bold rounded border-red-600 border-b-4">remove</i>`;
         minButton.innerText.replace("'", "");
         minButton.classList.add('min-btn');
         divMinplus.appendChild(minButton);
