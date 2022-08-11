@@ -47,6 +47,7 @@ async function getData(){
         const itemRow = document.createElement("li");
         const divAfbeelding = document.createElement("div");
         const divOmschrijving = document.createElement("div");
+        const divExtraOmschrijving = document.createElement("div");
         const divItemcode = document.createElement("div");
         const divVoorraad = document.createElement("div");
         const divPrijs = document.createElement("div");
@@ -64,7 +65,7 @@ async function getData(){
         //row div
         itemRow.classList.add('item-row');
         itemRow.setAttribute("id", data.rows[i].Itemcode);
-        itemRow.setAttribute("class", "grid grid-flow-col gap-1 p-2 m-2 bg-white rounded-2xl hover:shadow border border-b-4");
+        itemRow.setAttribute("class", "basis-1/4 p-2 m-2 bg-white  hover:shadow border border-b-4");
         itemList.appendChild(itemRow);
 
         //afbeelding div
@@ -73,14 +74,19 @@ async function getData(){
         image.src = 'data:image/png;base64,' + imageBase64;
         divAfbeelding.appendChild(image);
         divAfbeelding.classList.add('item-afbeelding');
-        divAfbeelding.setAttribute("class", "row-span-5 w-24 m-2 self-center");
+        divAfbeelding.setAttribute("class", "flex justify-center h-32 p-2");
         itemRow.appendChild(divAfbeelding);
 
         //omschrijving div
         divOmschrijving.innerText = data.rows[i].Omschrijving;
         divOmschrijving.classList.add('item-omschrijving');
-        divOmschrijving.setAttribute("class", "text-red-500 text-base subpixel-antialiased");
+        divOmschrijving.setAttribute("class", "text-sm text-red-500 font-semibold subpixel-antialiased h-10");
         itemRow.appendChild(divOmschrijving);
+
+        //extra omschrijving div
+        divExtraOmschrijving.innerText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam enim lacus, tincidunt in tempor id, ultrices eget augue.";
+        divExtraOmschrijving.setAttribute("class", "item-extra-omschrijving text-sm subpixel-antialiased italic text-[12px] pb-2");
+        itemRow.appendChild(divExtraOmschrijving);
 
         //item-code div
         divItemcode.innerText = "Itemcode: " + data.rows[i].Itemcode;
@@ -89,6 +95,7 @@ async function getData(){
         itemRow.appendChild(divItemcode);
 
         //voorraad div
+        divVoorraad.innerHTML = "<span>Op voorraad: </span>";
         divVoorraad.innerText = "Op voorraad: " + data.rows[i].Op_voorraad;
         divVoorraad.classList.add('item-voorraad');
         divVoorraad.setAttribute("class", "text-black text-sm subpixel-antialiased");
@@ -103,6 +110,7 @@ async function getData(){
         //div voor min, plus en aantal
         const divMinplus = document.createElement("div");
         divMinplus.classList.add('min-plus-aantal');
+        divMinplus.setAttribute("class", "flex justify-center items-end self-end");
         itemRow.appendChild(divMinplus);
 
         //min button div
