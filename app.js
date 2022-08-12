@@ -54,6 +54,8 @@ async function getData(){
         const divProductInfo = document.createElement("div");
         const divProductText = document.createElement("div");
         const divPrijsMinAantalPlus = document.createElement("div");
+        const divAchtergrond = document.createElement("div");
+
         
         //alles in een array, zodat het uniek is
         ItemsData = {
@@ -63,39 +65,41 @@ async function getData(){
             image: data.rows[i].Afbeelding
         };
 
-        //console.log(ItemsData.id);
 
         //row div
         itemRow.classList.add('item-row');
         itemRow.setAttribute("id", data.rows[i].Itemcode);
-        //itemRow.setAttribute("class", "basis-1/4 p-2 m-2 bg-white  hover:shadow border border-b-4");
-        itemRow.setAttribute("class", "h-[420px] w-[900px] m14 my-3.5 mx-auto rounded-lg shadow-xl");
+        itemRow.setAttribute("class", "group relative  h-[420px] w-[900px] my-3.5 mx-auto rounded-lg shadow-xl overflow-hidden");
         itemList.appendChild(itemRow);
+
+        //achtergrond skew
+        divAchtergrond.setAttribute("class", "absolute -bottom-40 right-0 h-[180px] w-[500px] content-none bg-slate-50 skew-y-[345deg] group-hover:skew-y-[320deg]  group-hover:h-[300px] group-hover:-bottom-80 duration-[0.5s] ")
+        itemRow.appendChild(divAchtergrond);
 
         //afbeelding div
         var image = new Image();
         var imageBase64 = data.rows[i].Afbeelding;
         image.src = 'data:image/png;base64,' + imageBase64;
-        image.classList = "h-[420px] object-cover object-left-top rounded-tl-lg rounded-bl-lg"
+        image.classList = "h-[420px] overflow-hidden scale-125 ease-in-out duration-500 group-hover:scale-100 object-cover object-center rounded-tl-lg rounded-bl-lg"
         divAfbeelding.appendChild(image);
         divAfbeelding.classList.add('item-afbeelding');
         //divAfbeelding.setAttribute("class", "flex justify-center h-32 p-2");
-        divAfbeelding.setAttribute("class", "float-left h-[420px] w-[327px] rounded-tl-lg rounded-bl-lg");
+        divAfbeelding.setAttribute("class", "overflow-hidden float-left h-[420px] w-[327px] rounded-tl-lg rounded-bl-lg");
         itemRow.appendChild(divAfbeelding);
 
         //product info
-        divProductInfo.setAttribute("class", "product-info float-left h-[420px] w-[573px] bg-white rounded-tr-lg rounded-br-lg");
+        divProductInfo.setAttribute("class", "overflow-hidden product-info float-left h-[420px] w-[573px] bg-white rounded-tr-lg rounded-br-lg");
         itemRow.appendChild(divProductInfo);
 
         //product text
-        divProductText.setAttribute("class", "product-text h-[300px] w-[573px]");
+        divProductText.setAttribute("class", "overflow-hidden product-text h-[300px] w-[573px]");
         divProductInfo.appendChild(divProductText);
 
         //omschrijving div
         divOmschrijving.innerText = data.rows[i].Omschrijving;
         divOmschrijving.classList.add('item-omschrijving');
         //divOmschrijving.setAttribute("class", "text-sm text-red-500 font-semibold subpixel-antialiased h-10");
-        divOmschrijving.setAttribute("class", "ml-9 mr-9 pt-12 text-4xl text-zinc-700 font-['Bentham'] font-semibold");
+        divOmschrijving.setAttribute("class", "overflow-hidden ml-9 mr-9 pt-12 text-4xl text-zinc-700 font-['Bentham'] font-semibold");
         divProductText.appendChild(divOmschrijving);
 
         //extra omschrijving div
@@ -133,7 +137,7 @@ async function getData(){
         //div voor min, plus, aantal
         const divMinplus = document.createElement("div");
         divMinplus.classList.add('min-plus-aantal');
-        divMinplus.setAttribute("class", "w-[573px] float-right inline-block mr-10 ml-4 box-border absolute");
+        divMinplus.setAttribute("class", "w-[200px] float-right inline-block mr-10 ml-4 flex flex-row");
         divPrijsMinAantalPlus.appendChild(divMinplus);
        
 
@@ -141,8 +145,8 @@ async function getData(){
         const minButton = document.createElement('button');
         minButton.setAttribute("id", ItemsData.id);
         minButton.setAttribute("onclick", `minnenAantal(${ItemsData.id})`);
-        minButton.setAttribute("class", "align-middle hover:shadow-md");
-        minButton.innerHTML = `<i class="material-icons inline-block float-right shadow focus:shadow-outline focus:outline-none bg-red-500 text-white h-10 w-10 font-bold rounded border-red-600 border-b-4">remove</i>`;
+        minButton.setAttribute("class", "");
+        minButton.innerHTML = `<i class="pt-[5px] material-icons inline-block float-right shadow focus:shadow-outline focus:outline-none hover:bg-red-600 bg-red-500 text-white h-10 w-10 font-bold rounded border-red-600 border-b-4">remove</i>`;
         minButton.innerText.replace("'", "");
         minButton.classList.add('min-btn');
         divMinplus.appendChild(minButton);
@@ -154,16 +158,16 @@ async function getData(){
         invulAantal.setAttribute("value",0);
         invulAantal.setAttribute("id", ItemsData.id+"aantal");
         invulAantal.setAttribute("min", 0);
-        invulAantal.setAttribute("class", "h-10 w-20 text-center shadow appearance-none border rounded m-2 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:shadow-md");
-        invulAantal.setAttribute("oninput", "this.value = !!this.value && Math.abs(this.value) >= 0 ? Math.abs(this.value) : null");
+        invulAantal.setAttribute("class", "pointer-events-none cursor-not-allowed text-center m-4 h-10 w-20 shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:shadow-md");
+        invulAantal.setAttribute("oninput", "");
         divMinplus.appendChild(invulAantal);
 
         //plus button div
         const plusButton = document.createElement('button');
         plusButton.setAttribute("id", ItemsData.id);
         plusButton.setAttribute("onclick", `plussenAantal(${ItemsData.id})`);
-        plusButton.setAttribute("class", " hover:shadow-md");
-        plusButton.innerHTML = `<i id="${ItemsData.id}plus" class="material-icons shadow focus:shadow-outline focus:outline-none bg-lime-500 text-white h-10 w-10 font-bold rounded border-lime-600 border-b-4">add</i>`;
+        plusButton.setAttribute("class", "");
+        plusButton.innerHTML = `<i id="${ItemsData.id}plus" class="pt-[5px] material-icons shadow focus:shadow-outline focus:outline-none hover:bg-lime-600 bg-lime-500 text-white h-10 w-10 font-bold rounded border-lime-600 border-b-4">add</i>`;
         plusButton.classList.add('plus-btn');
         divMinplus.appendChild(plusButton);
     }
